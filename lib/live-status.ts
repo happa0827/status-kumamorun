@@ -15,6 +15,14 @@ export type LiveStatusDaily = {
   failures: number;
 };
 
+/** Last 7 days oldest-first. success = plays > 0 && failures === 0. */
+export type LiveStatusWeekDay = {
+  date: string;
+  plays: number;
+  failures: number;
+  success: boolean;
+};
+
 export type LiveStatus = {
   appRunning: boolean;
   keeping: boolean;
@@ -28,6 +36,7 @@ export type LiveStatus = {
   startBlocked: boolean;
   blockReason: string | null;
   daily: LiveStatusDaily | null;
+  week: LiveStatusWeekDay[] | null;
 };
 
 /** Spec: remaining while running uses startedAt+duration; paused uses remainingSec as-is. */

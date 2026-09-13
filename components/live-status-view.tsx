@@ -88,9 +88,10 @@ export function LiveStatusView() {
   const stopped = isAppStopped(status);
   const keeping = !stopped && status?.keeping === true;
   const failures = status?.daily?.failures ?? null;
+  const week = status?.week ?? null;
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-lg">
       <CardHeader className="flex flex-row items-start justify-between gap-4">
         <div className="space-y-1.5">
           <CardTitle>ライブステータス</CardTitle>
@@ -140,6 +141,40 @@ export function LiveStatusView() {
           <dt className="text-muted-foreground">失敗数（当日）</dt>
           <dd>{failures == null ? "—" : failures}</dd>
         </dl>
+
+        <div className="flex flex-col gap-2">
+          <h3 className="text-sm font-medium">直近1週間</h3>
+          {week && week.length > 0 ? (
+            <div className="overflow-x-auto rounded-lg border">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/40 text-muted-foreground">
+                  <tr>
+                    <th className="px-3 py-2 font-medium">日付</th>
+                    <th className="px-3 py-2 font-medium">遊び</th>
+                    <th className="px-3 py-2 font-medium">失敗</th>
+                    <th className="px-3 py-2 font-medium">成功</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {week.map((day) => (
+                    <tr key={day.date} className="border-t">
+                      <td className="px-3 py-2 font-mono tabular-nums">
+                        {day.date}
+                      </td>
+                      <td className="px-3 py-2 tabular-nums">{day.plays}</td>
+                      <td className="px-3 py-2 tabular-nums">{day.failures}</td>
+                      <td className="px-3 py-2">
+                        {day.success ? "○" : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-sm">—</p>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
