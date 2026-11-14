@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "くまもーるん ステータス",
-  description: "くまもーるんの今の守り状態を表示する読み取り専用サイト",
+  description: "くまもーるん ステータスは新しいサイトへ移行しました。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
